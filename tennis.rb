@@ -11,15 +11,21 @@ module Tennis
     end
 
     def wins_point(winner)
-
-      winner.add_point
+      if winner.points > 3 
+        advantage? ? "#{winner.name} Wins" : winner.opponent.subt_pt
+      else
+        winner.add_point
+      end
+      
     end
 
     def call_score
+      current_server = 
+
       if @player1.points == @player2.points
         tie_score
-      elsif deuce?
-        deuce 
+      elsif advantage?
+        advantage 
       elsif @player1.server
         "#{@player1.score} #{@player2.score}"
       else
@@ -29,19 +35,18 @@ module Tennis
 
     private
     def tie_score
-      return "fifteen-all" if player1.points == 1
-      return "thirty-all" if player1.points == 2
-      return "deuce" if player1.points == 3
+      return "fifteen-all" if @player1.points == 1
+      return "thirty-all" if @player1.points == 2
+      return "deuce" if @player1.points == 3
     end
-    def deuce
-      if player1.server
-        player1.points>player2.points ? "Ad In" : "Ad Out"
-      else
-        player2.points>player1.points ? "Ad In" : "Ad Out"
-      end
+    def advantage
+      current_server.points > current_server.opponent.points ? "Ad In" : "Ad Out"
     end
-    def deuce?
+    def advantage?
       (@player1.points + @player2.points) > 6
+    end
+    def current_server
+      @player1.server ? @player1 : @player2
     end
     
   end
@@ -59,7 +64,7 @@ module Tennis
       @points += 1
     end
 
-    def subtract_point
+    def subt_pt
       @points -= 1
     end
 

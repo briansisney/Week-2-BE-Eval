@@ -29,6 +29,11 @@ describe Tennis::Game do
       # game.wins_point(@player1)
       expect(game.player1.points).to eq(1)
     end
+    # it 'returns winner' do
+    #   4.times {game.wins_point(game.player1)} 
+    #   expect(game.wins_point(game.player1)).to eq("Brian Wins")
+    # end
+    
   end
 
   describe '#call_score' do
@@ -41,12 +46,30 @@ describe Tennis::Game do
       game.wins_point(game.player2)}
       expect(game.call_score).to eq("thirty-all")
     end
-    it 'calls deuce'do
-      3.times {game.wins_point(game.player1)
-      game.wins_point(game.player2)}
+    it 'it calls deuce' do
+      3.times do 
+        game.wins_point(game.player1)
+        game.wins_point(game.player2)
+      end
       expect(game.call_score).to eq("deuce")
     end
+    it 'it calls Ad In' do
+      3.times do 
+        game.wins_point(game.player1)
+        game.wins_point(game.player2)
+      end
+      game.wins_point(game.player1)
+      expect(game.call_score).to eq("Ad In")
+    end
+    # it 'it calls back deuce after ad in' do
+    #   4.times do 
+    #     game.wins_point(game.player1)
+    #     game.wins_point(game.player2)
+    #   end
+    #   expect(game.call_score).to eq("deuce")
+    # end
   end
+
 end
 
 describe Tennis::Player do
