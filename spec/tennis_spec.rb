@@ -51,8 +51,8 @@ end
 
 describe Tennis::Player do
   let(:player) do
-    player = Tennis::Player.new
-    player.opponent = Tennis::Player.new
+    player = Tennis::Player.new("Name")
+    player.opponent = Tennis::Player.new("Name2")
 
     return player
   end
