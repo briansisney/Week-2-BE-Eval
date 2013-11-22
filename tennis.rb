@@ -2,9 +2,9 @@ module Tennis
   class Game
     attr_accessor :player1, :player2
 
-    def initialize
-      @player1 = Player.new("Player 1",server: true)
-      @player2 = Player.new("Player 2",server: false)
+    def initialize(name1, name2)
+      @player1 = Player.new(name1, server: true)
+      @player2 = Player.new(name2, server: false)
 
       @player1.opponent = @player2
       @player2.opponent = @player1

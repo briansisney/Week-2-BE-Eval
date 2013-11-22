@@ -4,7 +4,7 @@ require 'rspec'
 require_relative '../tennis'
 
 describe Tennis::Game do
-  let(:game) { Tennis::Game.new }
+  let(:game) { Tennis::Game.new("Brian","Alex") }
 
   describe '.initialize' do
     it 'creates two players' do
