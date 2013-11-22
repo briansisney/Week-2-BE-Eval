@@ -15,13 +15,15 @@ module Tennis
     end
 
     def call_score
-      if player1.points == player2.points
+      if @player1.points == @player2.points
         tie_score
-      elsif player1.server == true 
+      elsif (@player1.points + @player2.points) > 6
+        deuce 
+      elsif @player1.server
         "#{@player1.score} #{@player2.score}"
       else
-        "#{@player2.score} #{@player1.score}" 
-      end 
+        "#{@player2.score} #{@player1.score}"
+      end
     end
 
     private
@@ -30,6 +32,14 @@ module Tennis
       return "thirty-all" if player1.points == 2
       return "deuce" if player1.points == 3
     end
+    def deuce
+      if player1.server
+        player1.points>player2.points ? "Ad In" : "Ad Out"
+      else
+        player2.points>player1.points ? "Ad In" : "Ad Out"
+      end
+    end
+    
   end
 
   class Player
