@@ -31,11 +31,12 @@ describe Tennis::Game do
     end
   end
 
-  # describe '#call_score' do
-  #   it 'calls both players scores'do
-      
-  #   end
-  # end
+  describe '#call_score' do
+    it 'calls both players scores'do
+      game.wins_point(game.player1)
+      expect(game.call_score).to eq("fifteen love")
+    end
+  end
 end
 
 describe Tennis::Player do
