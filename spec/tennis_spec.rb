@@ -30,13 +30,7 @@ describe Tennis::Game do
       expect(game.player1.points).to eq(1)
     end
   end
-  describe 'p1wins_point' do
-    it 'increments the points of player 1' do
-      
-      game.p1wins_point
-      expect(game.player1.points).to eq(1)
-    end
-  end
+
   # describe '#call_score' do
   #   it 'calls both players scores'do
       

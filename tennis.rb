@@ -20,9 +20,7 @@ module Tennis
       # TODO: Think it's gross to pass an integer instead of a player object?
       # Then reimplement this method!
     end
-    def p1wins_point
-      @player1.add_point
-    end
+   
 
   end
 
