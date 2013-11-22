@@ -23,12 +23,13 @@ module Tennis
         "#{@player2.score} #{@player1.score}" 
       end 
     end
-    
+
     def tie
       return "fifteen-all" if player1.points == 1
       return "thirty-all" if player1.points == 2
       return "deuce" if player1.points == 3
     end
+
 
   end
 
@@ -42,6 +43,10 @@ module Tennis
 
     def add_point
       @points += 1
+    end
+
+    def subtract_point
+      @points -= 1
     end
 
     def score
