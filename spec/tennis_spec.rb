@@ -16,6 +16,11 @@ describe Tennis::Game do
       expect(game.player1.opponent).to eq(game.player2)
       expect(game.player2.opponent).to eq(game.player1)
     end
+    it 'sets player to server and player2 to server false'do
+      expect(game.player1.server).to eq(true)
+      expect(game.player2.server).to eq(false)
+    end
+
   end
 
   describe '#wins_point' do

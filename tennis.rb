@@ -3,8 +3,8 @@ module Tennis
     attr_accessor :player1, :player2
 
     def initialize
-      @player1 = Player.new
-      @player2 = Player.new
+      @player1 = Player.new(server: true)
+      @player2 = Player.new(server: false)
 
       @player1.opponent = @player2
       @player2.opponent = @player1
@@ -21,19 +21,17 @@ module Tennis
       # Then reimplement this method!
     end
     def p1wins_point
-       
       @player1.add_point
-     
-      # TODO: Think it's gross to pass an integer instead of a player object?
-      # Then reimplement this method!
     end
+
   end
 
   class Player
-    attr_accessor :points, :opponent
+    attr_accessor :points, :opponent, :server
 
-    def initialize
+    def initialize(server: true)
       @points = 0
+      @server = server
     end
 
     # Increments the score by 1.
