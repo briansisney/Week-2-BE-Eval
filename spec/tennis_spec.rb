@@ -32,9 +32,19 @@ describe Tennis::Game do
   end
 
   describe '#call_score' do
-    it 'calls both players scores'do
+    it 'calls both players scores if scores uneven'do
       game.wins_point(game.player1)
       expect(game.call_score).to eq("fifteen love")
+    end
+    it 'calls both players scores if even'do
+      2.times {game.wins_point(game.player1)
+      game.wins_point(game.player2)}
+      expect(game.call_score).to eq("thirty-all")
+    end
+    it 'calls deuce'do
+      3.times {game.wins_point(game.player1)
+      game.wins_point(game.player2)}
+      expect(game.call_score).to eq("deuce")
     end
   end
 end

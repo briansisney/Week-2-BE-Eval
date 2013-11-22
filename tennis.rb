@@ -15,12 +15,21 @@ module Tennis
     end
 
     def call_score
-      if player1.server == true
-          return "#{@player1.score} #{@player2.score}"
+      if player1.points == player2.points
+        tie
+      elsif player1.server == true
+        "#{@player1.score} #{@player2.score}"
       else
-          return "#{@player2.score} #{@player1.score}"
-      end  
-    end  
+        "#{@player2.score} #{@player1.score}" 
+      end 
+    end
+    
+    def tie
+      return "fifteen-all" if player1.points == 1
+      return "thirty-all" if player1.points == 2
+      return "deuce" if player1.points == 3
+    end
+
   end
 
   class Player
@@ -40,6 +49,7 @@ module Tennis
       return 'fifteen' if @points == 1
       return 'thirty' if @points == 2
       return 'forty' if @points == 3
+      return 'advantage' if @points == 4
     end
   end
 end
