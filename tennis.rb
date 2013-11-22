@@ -15,7 +15,15 @@ module Tennis
     # winner - The Integer (1 or 2) representing the winning player.
     #
     # Returns the score of the winning player. 
-    def wins_ball(winner)
+    def wins_point(winner)
+      winner.add_point
+      # TODO: Think it's gross to pass an integer instead of a player object?
+      # Then reimplement this method!
+    end
+    def p1wins_point
+       
+      @player1.add_point
+     
       # TODO: Think it's gross to pass an integer instead of a player object?
       # Then reimplement this method!
     end
@@ -31,16 +39,16 @@ module Tennis
     # Increments the score by 1.
     #
     # Returns the integer new score.
-    def record_won_ball!
+    def add_point
       @points += 1
     end
 
     # Returns the String score for the player.
     def score
       return 'love' if @points == 0
-      # return 'love' if @points == 1
-      # return 'love' if @points == 2
-      # return 'love' if @points == 3
+      return 'fifteen' if @points == 1
+      return 'thirty' if @points == 2
+      return 'forty' if @points == 3
     end
   end
 end

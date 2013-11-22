@@ -13,17 +13,30 @@ describe Tennis::Game do
     end
 
     it 'sets the opponent for each player'do
-      
+      expect(game.player1.opponent).to eq(game.player2)
+      expect(game.player2.opponent).to eq(game.player1)
     end
   end
 
-  describe '#wins_ball' do
+  describe '#wins_point' do
     it 'increments the points of the winning player' do
-      game.wins_ball(1)
-
+      game.wins_point(game.player1)
+      # game.wins_point(@player1)
       expect(game.player1.points).to eq(1)
     end
   end
+  describe 'p1wins_point' do
+    it 'increments the points of player 1' do
+      
+      game.p1wins_point
+      expect(game.player1.points).to eq(1)
+    end
+  end
+  # describe '#call_score' do
+  #   it 'calls both players scores'do
+      
+  #   end
+  # end
 end
 
 describe Tennis::Player do
@@ -40,9 +53,9 @@ describe Tennis::Player do
     end 
   end
 
-  describe '#record_won_ball!' do
+  describe '#add_point' do
     it 'increments the points' do
-      player.record_won_ball!
+      player.add_point
 
       expect(player.points).to eq(1)
     end
