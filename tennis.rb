@@ -11,13 +11,14 @@ module Tennis
     end
 
     def wins_point(winner)
+
       winner.add_point
     end
 
     def call_score
       if @player1.points == @player2.points
         tie_score
-      elsif (@player1.points + @player2.points) > 6
+      elsif deuce?
         deuce 
       elsif @player1.server
         "#{@player1.score} #{@player2.score}"
@@ -38,6 +39,9 @@ module Tennis
       else
         player2.points>player1.points ? "Ad In" : "Ad Out"
       end
+    end
+    def deuce?
+      (@player1.points + @player2.points) > 6
     end
     
   end
