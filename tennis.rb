@@ -20,16 +20,12 @@ module Tennis
     end
 
     def call_score
-      current_server = 
-
       if @player1.points == @player2.points
         tie_score
       elsif advantage?
         advantage 
-      elsif @player1.server
-        "#{@player1.score} #{@player2.score}"
-      else
-        "#{@player2.score} #{@player1.score}"
+      else 
+        "#{current_server.score} #{current_server.opponent.score}"
       end
     end
 
