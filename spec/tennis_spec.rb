@@ -29,10 +29,21 @@ describe Tennis::Game do
       # game.wins_point(@player1)
       expect(game.player1.points).to eq(1)
     end
-    # it 'returns winner' do
-    #   4.times {game.wins_point(game.player1)} 
-    #   expect(game.wins_point(game.player1)).to eq("Brian Wins")
-    # end
+    context 'when game is won' do
+      it 'returns game one' do
+        5.times {game.wins_point(game.player1)} 
+        expect(game.player1.games_won).to eq(1)
+      end
+      it 'clears player1 points'do
+        5.times {game.wins_point(game.player1)} 
+        expect(game.player1.points).to eq(0)
+      end
+      it 'changes server'do
+        5.times {game.wins_point(game.player1)} 
+        expect(game.player1.server).to eq(false)
+      end
+    end
+    
     
   end
 
@@ -61,21 +72,92 @@ describe Tennis::Game do
       game.wins_point(game.player1)
       expect(game.call_score).to eq("Ad In")
     end
-    # it 'it calls back deuce after ad in' do
-    #   4.times do 
-    #     game.wins_point(game.player1)
-    #     game.wins_point(game.player2)
-    #   end
-    #   expect(game.call_score).to eq("deuce")
-    # end
+    it 'it calls back deuce after ad in' do
+      4.times do 
+        game.wins_point(game.player1)
+        game.wins_point(game.player2)
+      end
+      expect(game.call_score).to eq("deuce")
+    end
   end
 
+  describe '#call_game' do
+    it 'calls the games score 0-0 at start'do
+      expect(game.call_game).to eq("Brian: 0 Alex: 0")
+    end
+    it 'calls the games score 1-0 after first game'do
+      5.times {game.wins_point(game.player1)} 
+      expect(game.call_game).to eq("Brian: 1 Alex: 0")
+    end
+    it 'calls the games score 5-5'do
+      25.times {game.wins_point(game.player1)}
+      25.times {game.wins_point(game.player2)} 
+      expect(game.call_game).to eq("Brian: 5 Alex: 5")
+    end
+    it 'does not call the games score 6-4, but 0-0'do
+      20.times do
+        game.wins_point(game.player1)
+        game.wins_point(game.player2)
+      end
+      10.times {game.wins_point(game.player1)}
+      expect(game.call_game).to eq("Brian: 0 Alex: 0")
+      #set isn't working or rather clear score isn't working
+    end
+    it 'calls the set score 1'do
+      20.times {game.wins_point(game.player1)}
+      20.times {game.wins_point(game.player2)}
+      10.times {game.wins_point(game.player1)}
+      expect(game.player1.sets_won).to eq(1)
+    end
+    it 'calls the game score 6-5'do
+      25.times {game.wins_point(game.player1)}
+      25.times {game.wins_point(game.player2)}
+      5.times {game.wins_point(game.player1)}
+      expect(game.call_game).to eq("Brian: 6 Alex: 5")
+    end
+    it 'calls the game score 7-6'do
+      25.times {game.wins_point(game.player1)}
+      25.times {game.wins_point(game.player2)}
+      5.times {game.wins_point(game.player1)}
+      5.times {game.wins_point(game.player2)}
+      5.times {game.wins_point(game.player1)}
+      expect(game.call_game).to eq("Brian: 7 Alex: 6")
+    end
+    it 'calls the game score 8-7'do
+      25.times {game.wins_point(game.player1)}
+      25.times {game.wins_point(game.player2)}
+      5.times {game.wins_point(game.player1)}
+      5.times {game.wins_point(game.player2)}
+      5.times {game.wins_point(game.player1)}
+      5.times {game.wins_point(game.player2)}
+      5.times {game.wins_point(game.player1)}
+      expect(game.call_game).to eq("Brian: 8 Alex: 7")
+    end
+    it 'calls the game score 0-0'do
+      25.times {game.wins_point(game.player1)}
+      25.times {game.wins_point(game.player2)}
+      5.times {game.wins_point(game.player1)}
+      5.times {game.wins_point(game.player2)}
+      5.times {game.wins_point(game.player1)}
+      5.times {game.wins_point(game.player1)}
+      expect(game.call_game).to eq("Brian: 0 Alex: 0")
+    end
+    it 'calls the set equal to 1'do
+      25.times {game.wins_point(game.player1)}
+      25.times {game.wins_point(game.player2)}
+      5.times {game.wins_point(game.player1)}
+      5.times {game.wins_point(game.player2)}
+      5.times {game.wins_point(game.player1)}
+      5.times {game.wins_point(game.player1)}
+      expect(game.player1.sets_won).to eq(1)
+    end
+  end
 end
-
+# so when calling self on game, is this okay to do? would it have been better to take and done the game compare in players? or is it fine to call self? 
 describe Tennis::Player do
   let(:player) do
-    player = Tennis::Player.new("Name")
-    player.opponent = Tennis::Player.new("Name2")
+    player = Tennis::Player.new("Name", Tennis::Game.new("Brian","Alex") )
+    player.opponent = Tennis::Player.new("Name2", Tennis::Game.new("Brian","Alex"))
 
     return player
   end
