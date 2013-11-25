@@ -21,8 +21,7 @@ module Tennis
         winner.add_point
       end
     end
-
-
+    
     #score calls the points, not games or sets
     def call_score
       if @player1.points == @player2.points

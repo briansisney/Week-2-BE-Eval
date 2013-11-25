@@ -95,10 +95,8 @@ describe Tennis::Game do
       expect(game.call_game).to eq("Brian: 5 Alex: 5")
     end
     it 'does not call the games score 6-4, but 0-0'do
-      20.times do
-        game.wins_point(game.player1)
-        game.wins_point(game.player2)
-      end
+      20.times {game.wins_point(game.player1)}
+      20.times {game.wins_point(game.player2)}
       10.times {game.wins_point(game.player1)}
       expect(game.call_game).to eq("Brian: 0 Alex: 0")
       #set isn't working or rather clear score isn't working
